@@ -12,9 +12,10 @@ export default function Menu(props) {
     redoLayer,
     textEditMode,
     cropIndex,
+    downloadImage,
     stageRef,
   } = props;
-  const url = stageRef;
+
   React.useEffect(() => {
     if (!undoList || !undoList.length || textEditMode === TEXT_EDIT_MODE.EDITOR)
       return;
@@ -63,8 +64,15 @@ export default function Menu(props) {
     return (
       <div
         onClick={() => {
-          const uri = stageRef.current.toDataURL();
-          console.log(uri);
+          downloadImage(stageRef);
+          function downloadURI(uri, name) {
+            var link = document.createElement("a");
+            link.download = name;
+            link.href = uri;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
         }}
         style={{ float: "right" }}
       >

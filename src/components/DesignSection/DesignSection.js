@@ -58,13 +58,28 @@ function DesignSection() {
   const [dropElement, setDropElement] = React.useState(null);
   const [selectedId, selectShape] = React.useState(null);
   const [shapeRef, setShapeRef] = React.useState(null);
-  const stageRef = React.createRef();
+  const stageRef = React.createRef(null);
   const [undoList, setUndoList] = React.useState([]);
   const [redoList, setRedoList] = React.useState([]);
   const [chartData, setChartData] = React.useState(null);
   const [textEditMode, setTextEditMode] = React.useState(null);
   const [containerOffset, setContainerOffset] = React.useState({});
-
+  const downloadImage = (URL) => {
+    localStorage.setItem(
+      "Image",
+      stageRef.current
+        ?.getStage()
+        .toDataURL({ mimeType: "image/jpeg", quality: 1 })
+    );
+    // var img = new Image();
+    // // img.src = "https://www.google.com/";
+    // img.onload = function () {
+    //   const uri = stageRef.current
+    //     ?.getStage()
+    //     .toDataURL({ mimeType: "image/jpeg", quality: 1 });
+    //   console.log(uri);
+    // };
+  };
   const [layer, setLayer] = useState([]);
 
   const [cropIndex, setCropIndex] = useState(null);
@@ -997,8 +1012,9 @@ function DesignSection() {
         redoLayer={handleRedoLayer}
         onResize={onResize}
         setOnResize={setOnResize}
-        stageRef={stageRef}
+        downloadImage={downloadImage}
         cropIndex={cropIndex}
+        stageRef={stageRef}
       ></Menu>
       <div style={{ height: "300px", width: "300px" }}>
         <canvas
