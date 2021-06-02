@@ -2,7 +2,8 @@ import React from "react";
 import "./Menu.scss";
 import faUndoRedo from "../../../assets/img/return-arrow.svg";
 import { TEXT_EDIT_MODE } from "../EditableDiv/EditableDiv";
-
+import Konva from "konva";
+import html2canvas from "html2canvas";
 export default function Menu(props) {
   let {
     undoList,
@@ -13,7 +14,7 @@ export default function Menu(props) {
     cropIndex,
     stageRef,
   } = props;
-
+  const url = stageRef;
   React.useEffect(() => {
     if (!undoList || !undoList.length || textEditMode === TEXT_EDIT_MODE.EDITOR)
       return;
